@@ -6,6 +6,7 @@ var centerX = width/2;
 var centerY = height/2;
 var ray = 80;
 var time = 0;
+var sinexpos = -40;
 
 function drawCircle( parX, parY, fillStyle = 'green' ) {
   var radius = 30;
@@ -27,14 +28,25 @@ function spinBall( Time = 0 ) {
   posY = Math.sin( Time * Math.PI ) * ray + centerY;
   posX = Math.cos( Time * Math.PI ) * ray + centerX;
 
-  drawCircle( posX, posY );
+  drawCircle( posX, posY, 'pink' );
   drawCircle( posY, posX, 'cyan' );
+}
+
+function sineWaveBall() {
+  var ypos =  100 + Math.sin( sinexpos ) * 50;
+  alert( ypos );
+  drawCircle( sinexpos, ypos, 'red' );
+  sinexpos += 5;
+  if (sinexpos > (40 + canvas.width) ) {
+    sinexpos = -40;
+  }
 }
 
 function drawOnTime() {
   // Clear the canvas.
   context.clearRect(0, 0, canvas.width, canvas.height);
   spinBall( time );
+  sineWaveBall();
   time += 1/8;
 }
 

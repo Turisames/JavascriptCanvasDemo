@@ -1,13 +1,26 @@
+// All the globals.
+
 var canvas = document.getElementById('canvas');
 var context = canvas.getContext("2d");
+// Canvas dimensions.
 var width = canvas.width;
 var height = canvas.height;
+// Center of the canvas.
 var centerX = width/2;
 var centerY = height/2;
+// The radius of the circle along which balls spin.
 var ray = 80;
+//
 var time = 0;
+// The X positions of the sine and cosine balls.
 var sinexpos = -40;
 var cosinexpos = -120;
+// The modifier of the sine and cosine tracks.
+var sinepower = 150
+// Speed of the animation.
+var pace = 50;
+
+// END of globals.
 
 function drawCircle( parX, parY, fillStyle = 'green' ) {
   var radius = 30;
@@ -34,16 +47,16 @@ function spinBall( Time = 0 ) {
 }
 
 function sineWaveBall() {
-  var ypos = 150 + Math.sin( sinexpos ) * 75;
+  var ypos = 150 + Math.sin( sinexpos ) * sinepower;
   //alert( ypos );
   drawCircle( sinexpos, ypos, 'red' );
   //sinexpos += 5;
 }
 
 function cosineWaveBall() {
-  var ypos = 150 + Math.cos( cosinexpos ) * 75;
+  var ypos = 150 + Math.cos( sinexpos ) * sinepower;
   //alert( ypos );
-  drawCircle( cosinexpos, ypos, 'blue' );
+  drawCircle( sinexpos, ypos, 'blue' );
   //sinexpos += 5;
 }
 
@@ -65,7 +78,7 @@ function drawOnTime() {
 }
 
 function main() {
-  setInterval(drawOnTime, 50);
+  setInterval(drawOnTime, pace);
 }
 
 main();

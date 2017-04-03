@@ -7,6 +7,7 @@ var centerY = height/2;
 var ray = 80;
 var time = 0;
 var sinexpos = -40;
+var cosinexpos = -120;
 
 function drawCircle( parX, parY, fillStyle = 'green' ) {
   var radius = 30;
@@ -33,13 +34,17 @@ function spinBall( Time = 0 ) {
 }
 
 function sineWaveBall() {
-  var ypos =  100 + Math.sin( sinexpos ) * 50;
-  alert( ypos );
+  var ypos = 150 + Math.sin( sinexpos ) * 75;
+  //alert( ypos );
   drawCircle( sinexpos, ypos, 'red' );
-  sinexpos += 5;
-  if (sinexpos > (40 + canvas.width) ) {
-    sinexpos = -40;
-  }
+  //sinexpos += 5;
+}
+
+function cosineWaveBall() {
+  var ypos = 150 + Math.cos( cosinexpos ) * 75;
+  //alert( ypos );
+  drawCircle( cosinexpos, ypos, 'blue' );
+  //sinexpos += 5;
 }
 
 function drawOnTime() {
@@ -47,12 +52,20 @@ function drawOnTime() {
   context.clearRect(0, 0, canvas.width, canvas.height);
   spinBall( time );
   sineWaveBall();
+  cosineWaveBall();
+  sinexpos += 5;
+  cosinexpos += 5;
+  if (sinexpos > (40 + canvas.width) ) {
+    sinexpos = -40;
+  }
+  if ( cosinexpos > (40 + canvas.width) ) {
+    cosinexpos = -40;
+  }
   time += 1/8;
 }
 
 function main() {
-  //drawCircle( 10, 10 ); // Basic test
-  setInterval(drawOnTime, 40);
+  setInterval(drawOnTime, 50);
 }
 
 main();

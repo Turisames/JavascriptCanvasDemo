@@ -9,7 +9,7 @@ var height = canvas.height;
 var centerX = width/2;
 var centerY = height/2;
 // The radius of the circle along which balls spin.
-var ray = 80;
+var ray = height/3;
 //
 var time = 0;
 // The X positions of the sine and cosine balls.
@@ -35,12 +35,9 @@ function drawCircle( parX, parY, fillStyle = 'green' ) {
 
 // Takes time in ms, determines position accordingly.
 function spinBall( Time = 0 ) {
-  var angle = 0;
-  var posX = 0;
-  var posY = 0;
   // Note to self, uses radians.
-  posY = Math.sin( Time * Math.PI ) * ray + centerY;
-  posX = Math.cos( Time * Math.PI ) * ray + centerX;
+  var posX = centerX + Math.cos( Time * Math.PI ) * ray;
+  var posY = centerY + Math.sin( Time * Math.PI ) * ray;
 
   drawCircle( posX, posY, 'pink' );
   drawCircle( posY, posX, 'cyan' );

@@ -4,14 +4,14 @@ var width = canvas.width;
 var height = canvas.height;
 var centerX = width/2;
 var centerY = height/2;
-var ray = 30;
+var ray = 80;
 var time = 0;
 
-function drawCircle( parX, parY ) {
+function drawCircle( parX, parY, fillStyle = 'green' ) {
   var radius = 30;
   context.beginPath();
   context.arc( parX, parY, radius, 0, 2 * Math.PI, false);
-  context.fillStyle = 'green';
+  context.fillStyle = fillStyle;
   context.fill();
   context.lineWidth = 5;
   context.strokeStyle = '#003300';
@@ -27,8 +27,8 @@ function spinBall( Time = 0 ) {
   posY = Math.sin( Time * Math.PI ) * ray + centerY;
   posX = Math.cos( Time * Math.PI ) * ray + centerX;
 
-  //drawCircle( centerX, centerY );
   drawCircle( posX, posY );
+  drawCircle( posY, posX, 'cyan' );
 }
 
 function drawOnTime() {

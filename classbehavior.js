@@ -11,12 +11,21 @@ var height = canvas.height;
 var centerX = width/2;
 var centerY = height/2;
 
+// Mode of movement
+ColorMode = {
+  CLOCKWISE : 0,
+  COUNTERCLOCK : 1,
+  SINE : 2,
+  COSINE : 3
+}
+
 class Circle {
-  constructor( parX, parY, Rad = 30, Color = 'green' ) {
+  constructor( parX, parY, Rad = 30, Color = 'green', Mode = ColorMode.CLOCKWISE ) {
     this.x = parX;
     this.y = parY;
     this.radius = Rad;
     this.color = Color;
+    this.mode = Mode;
   }
 
   draw(){
@@ -53,6 +62,22 @@ class Circle {
   }
 
   update(){
+    switch ( this.mode ) {
+      case ColorMode.CLOCKWISE:
+        this.clockwise
+        break;
+      case ColorMode.COUNTERCLOCK:
+        this.counterclock
+        break;
+      case ColorMode.SINE:
+        this.sine
+        break;
+      case ColorMode.COSINE:
+        this.cosine
+        break;
+      default:
+
+    }
 
   }
 

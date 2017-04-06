@@ -11,8 +11,11 @@ var height = canvas.height;
 var centerX = width/2;
 var centerY = height/2;
 
+var Time = 0;
+
+var colorArray = ['red', 'green', 'blue', 'yellow', 'purple', 'pink', 'cyan'];
 // Mode of movement
-ColorMode = {
+MoveMode = {
   CLOCKWISE : 0,
   COUNTERCLOCK : 1,
   SINE : 2,
@@ -20,11 +23,12 @@ ColorMode = {
 }
 
 class Circle {
-  constructor( parX, parY, Rad = 30, Color = 'green', Mode = ColorMode.CLOCKWISE ) {
+  constructor( parX, parY, Color = 'green', Delay = 0, Mode = MoveMode.CLOCKWISE, Rad = 40 ) {
     this.x = parX;
     this.y = parY;
     this.radius = Rad;
     this.color = Color;
+    self.delay = Delay;
     this.mode = Mode;
   }
 
@@ -63,22 +67,41 @@ class Circle {
 
   update(){
     switch ( this.mode ) {
-      case ColorMode.CLOCKWISE:
+      case MoveMode.CLOCKWISE:
         this.clockwise
         break;
-      case ColorMode.COUNTERCLOCK:
+      case MoveMode.COUNTERCLOCK:
         this.counterclock
         break;
-      case ColorMode.SINE:
+      case MoveMode.SINE:
         this.sine
         break;
-      case ColorMode.COSINE:
+      case MoveMode.COSINE:
         this.cosine
         break;
       default:
-
+        break;
     }
-
+    this.draw();
   }
-
 }
+
+function pickColor() {
+  return colorArray[ Math.floor( Math.random() * colorArray.size ) ];
+}
+
+function move_balls() {
+  var balls = [];
+
+  var ball = new Circle( 100, 100, 'green', 0, MoveMode.CLOCKWISE );
+  ball.draw();
+
+  ball.setPos( 200, 200 );
+  ball.draw();
+  // Populate array with balls.
+  for (var i = 0; i < 11; ++i){
+    balls.push( new Circle() );
+  }
+}
+
+move_balls();

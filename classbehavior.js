@@ -24,13 +24,17 @@ MoveMode = {
 }
 
 class Circle {
-  constructor( parX, parY, Color = 'green', Delay = 0, Mode = MoveMode.CLOCKWISE, Rad = 40 ) {
+  constructor( parX, parY, Color = 'green', Delay = 0,
+     Mode = MoveMode.CLOCKWISE, Rad = 40, Ray = canvas.height/3 ) {
     this.x = parX;
     this.y = parY;
+    // The radius of a ball.
     this.radius = Rad;
     this.color = Color;
-    self.delay = Delay;
+    this.delay = Delay;
     this.mode = Mode;
+    // The radius of the circle along which balls spin.
+    this.ray = Ray;
   }
 
   draw(){
@@ -49,15 +53,13 @@ class Circle {
   }
 
   clockwise(){
-    //this.x = centerX + Math.cos( self.delay * Math.PI ) * ray;
-    this.x = this.x + Math.cos( self.delay * Math.PI ) * ray;
-    //this.y = centerY + Math.sin( self.delay * Math.PI ) * ray;
-    this.y = this.y + Math.sin( self.delay * Math.PI ) * ray;
+    this.x = centerX + Math.cos( this.delay * Math.PI ) * this.ray ;
+    this.y = centerY + Math.sin( this.delay * Math.PI ) * this.ray ;
   }
 
   counterclock(){
-    this.x = width - (centerX + Math.cos( self.delay * Math.PI ) * ray);
-    this.y = centerY + Math.sin( self.delay * Math.PI ) * ray;
+    this.x = width - (centerX + Math.cos( this.delay * Math.PI ) * this.ray);
+    this.y = centerY + Math.sin( this.delay * Math.PI ) * this.ray;
   }
 
   sineroute(){
@@ -69,19 +71,20 @@ class Circle {
   }
 
   update(){
-    ++self.delay;
+    this.delay += 1/8;
+    
     switch ( this.mode ) {
       case MoveMode.CLOCKWISE:
-        this.clockwise;
+        this.clockwise();
         break;
       case MoveMode.COUNTERCLOCK:
-        this.counterclock;
+        this.counterclock();
         break;
       case MoveMode.SINE:
-        this.sine;
+        this.sine();
         break;
       case MoveMode.COSINE:
-        this.cosine;
+        this.cosine();
         break;
       default:
         break;
@@ -94,25 +97,23 @@ function pickColor() {
   return colorArray[ Math.floor( Math.random() * colorArray.size ) ];
 }
 
-function update_balls( balls = [] ){
-  for( var i = 0; i < balls.size; ++i ){
-    console.log( balls[i]);
+function update_balls(){
+
+  // Clear the canvas.
+  context.clearRect(0, 0, canvas.width, canvas.height);
+
+  for( var i = 0; i < balls.length; ++i ){
     balls[ i ].update();
-    balls[ i ].draw();
   }
 }
 
 function move_balls() {
-  /*var ball = new Circle( 100, 100, 'green', 0, MoveMode.CLOCKWISE );
-  ball.draw();
-  ball.setPos( 200, 200 );
-  ball.draw();*/
 
   // Populate array with balls.
   for (var i = 0; i < 11; ++i){
-    balls.push( new Circle(200, 200, 'green', i*3, MoveMode.CLOCKWISE ) );
+    balls.push( new Circle(200, 200, 'green', i/8, MoveMode.CLOCKWISE ) );
   }
-  setInterval( update_balls , 500 );
+  setInterval( update_balls , 50 );
 }
 
 move_balls();

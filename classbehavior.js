@@ -11,7 +11,8 @@ var height = canvas.height;
 var centerX = width/2;
 var centerY = height/2;
 
-var Time = 0;
+var TIME = 0;
+var balls = [];
 
 var colorArray = ['red', 'green', 'blue', 'yellow', 'purple', 'pink', 'cyan'];
 // Mode of movement
@@ -48,13 +49,15 @@ class Circle {
   }
 
   clockwise(){
-    this.x = centerX + Math.cos( Time * Math.PI ) * ray;
-    this.y = centerY + Math.sin( Time * Math.PI ) * ray;
+    //this.x = centerX + Math.cos( self.delay * Math.PI ) * ray;
+    this.x = this.x + Math.cos( self.delay * Math.PI ) * ray;
+    //this.y = centerY + Math.sin( self.delay * Math.PI ) * ray;
+    this.y = this.y + Math.sin( self.delay * Math.PI ) * ray;
   }
 
   counterclock(){
-    this.x = width - (centerX + Math.cos( Time * Math.PI ) * ray);
-    this.y = centerY + Math.sin( Time * Math.PI ) * ray;
+    this.x = width - (centerX + Math.cos( self.delay * Math.PI ) * ray);
+    this.y = centerY + Math.sin( self.delay * Math.PI ) * ray;
   }
 
   sineroute(){
@@ -66,18 +69,19 @@ class Circle {
   }
 
   update(){
+    ++self.delay;
     switch ( this.mode ) {
       case MoveMode.CLOCKWISE:
-        this.clockwise
+        this.clockwise;
         break;
       case MoveMode.COUNTERCLOCK:
-        this.counterclock
+        this.counterclock;
         break;
       case MoveMode.SINE:
-        this.sine
+        this.sine;
         break;
       case MoveMode.COSINE:
-        this.cosine
+        this.cosine;
         break;
       default:
         break;
@@ -90,18 +94,25 @@ function pickColor() {
   return colorArray[ Math.floor( Math.random() * colorArray.size ) ];
 }
 
+function update_balls( balls = [] ){
+  for( var i = 0; i < balls.size; ++i ){
+    console.log( balls[i]);
+    balls[ i ].update();
+    balls[ i ].draw();
+  }
+}
+
 function move_balls() {
-  var balls = [];
-
-  var ball = new Circle( 100, 100, 'green', 0, MoveMode.CLOCKWISE );
+  /*var ball = new Circle( 100, 100, 'green', 0, MoveMode.CLOCKWISE );
   ball.draw();
-
   ball.setPos( 200, 200 );
-  ball.draw();
+  ball.draw();*/
+
   // Populate array with balls.
   for (var i = 0; i < 11; ++i){
-    balls.push( new Circle() );
+    balls.push( new Circle(200, 200, 'green', i*3, MoveMode.CLOCKWISE ) );
   }
+  setInterval( update_balls , 500 );
 }
 
 move_balls();

@@ -23,6 +23,14 @@ MoveMode = {
   COSINE : 3
 }
 
+SpreadPattern = {
+  SLOW : 1,
+  MEDIUM : 2,
+  FAST : 3,
+  SINEACCENTER,
+  SINEACCEDGE
+}
+
 class Circle {
   constructor( parX, parY, Color = 'green', Delay = 0,
      Mode = MoveMode.CLOCKWISE, Rad = 40, Ray = canvas.height/3 ) {
@@ -68,6 +76,9 @@ class Circle {
 
   cosineroute(){
     this.y = centerY + Math.cos( sinexpos ) * sinepower;
+  }
+  circlespread(){
+    this.ray += 3;
   }
 
   update(){

@@ -27,8 +27,8 @@ SpreadPattern = {
   SLOW : 1,
   MEDIUM : 2,
   FAST : 3,
-  SINEACCENTER,
-  SINEACCEDGE
+  SINEACCENTER : 4,
+  SINEACCEDGE : 5
 }
 
 class Circle {
@@ -43,6 +43,11 @@ class Circle {
     this.mode = Mode;
     // The radius of the circle along which balls spin.
     this.ray = Ray;
+    this.spread = SpreadPattern.MEDIUM;
+  }
+
+  setSpread( Pattern ){
+    this.spread = Pattern;
   }
 
   draw(){

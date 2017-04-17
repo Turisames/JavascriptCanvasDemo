@@ -81,7 +81,7 @@ class Circle {
 
   sineroute(){
     // TODO: Implement sinepower .
-    this.y = canvas.height/2 + Math.sin( this.x / 50  ) * 150;
+    this.y = this.y + Math.sin( this.x / 50  ) * 50;
     this.x += 10;
     if ( canvas.width < this.x){
       this.x = 0;
@@ -90,7 +90,7 @@ class Circle {
 
   cosineroute(){
     // TODO: Implement sinepower .
-    this.y = canvas.height/2 + Math.cos( this.x / 50 ) * 150;
+    this.y = this.y + Math.cos( this.x / 50 ) * 150;
     this.x += 10;
     if ( canvas.width < this.x){
       this.x = 0;
@@ -154,11 +154,18 @@ function update_balls(){
 function move_balls() {
 
   // Populate array with balls.
-  for (var i = 0; i < 11; ++i){
+  for (var i = 0; i < 14; ++i){
+    if ( i != 5 && i != 8)
     balls.push( new Circle(200, 200, 'green', i/8, MoveMode.CLOCKWISE ) );
   }
-  balls.push( new Circle( 0, 150, 'red', 0, MoveMode.SINE ) );
-  balls.push( new Circle( 0, 150, 'blue', 0, MoveMode.COSINE ) );
+  balls.push( new Circle( 0, canvas.height/2, 'red', 0, MoveMode.SINE ) );
+  balls.push( new Circle( 0, canvas.height/2, 'blue', 0, MoveMode.COSINE ) );
+  
+  balls.push( new Circle( -20, 50, 'pink', 0, MoveMode.SINE ) );
+  balls.push( new Circle( -40, 50, 'purple', 0, MoveMode.COSINE ) );
+  
+  balls.push( new Circle( -30, 250, 'burgundy', 0, MoveMode.SINE ) );
+  balls.push( new Circle( -50, 250, 'cyan', 0, MoveMode.COSINE ) );
 
   // Important.
   // Start doing the actual animation.

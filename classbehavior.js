@@ -80,11 +80,21 @@ class Circle {
   }
 
   sineroute(){
-    this.y = centerY + Math.sin( sinexpos ) * sinepower;
+    // TODO: Implement sinepower .
+    this.y = canvas.height/2 + Math.sin( this.x / 50  ) * 150;
+    this.x += 10;
+    if ( canvas.width < this.x){
+      this.x = 0;
+    }
   }
 
   cosineroute(){
-    this.y = centerY + Math.cos( sinexpos ) * sinepower;
+    // TODO: Implement sinepower .
+    this.y = canvas.height/2 + Math.cos( this.x / 50 ) * 150;
+    this.x += 10;
+    if ( canvas.width < this.x){
+      this.x = 0;
+    }
   }
   
   spread(){
@@ -115,10 +125,10 @@ class Circle {
         this.counterclock();
         break;
       case MoveMode.SINE:
-        this.sine();
+        this.sineroute();
         break;
       case MoveMode.COSINE:
-        this.cosine();
+        this.cosineroute();
         break;
       default:
         break;
@@ -148,6 +158,7 @@ function move_balls() {
     balls.push( new Circle(200, 200, 'green', i/8, MoveMode.CLOCKWISE ) );
   }
   balls.push( new Circle( 0, 150, 'red', 0, MoveMode.SINE ) );
+  balls.push( new Circle( 0, 150, 'blue', 0, MoveMode.COSINE ) );
 
   // Important.
   // Start doing the actual animation.

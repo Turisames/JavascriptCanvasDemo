@@ -46,6 +46,10 @@ class Circle {
     this.spread = SpreadPattern.MEDIUM;
   }
 
+  setMode( Mode = MoveMode.CLOCKWISE ){
+    this.mode = Mode;
+  }
+
   setSpread( Pattern ){
     this.spread = Pattern;
   }
@@ -82,8 +86,22 @@ class Circle {
   cosineroute(){
     this.y = centerY + Math.cos( sinexpos ) * sinepower;
   }
-  circlespread(){
-    this.ray += 3;
+  
+  spread(){
+    switch ( this.spread ){
+      case SpreadPattern.SLOW:
+        this.ray += 1;
+      case SpreadPattern.MEDIUM:
+        this.ray += 3;
+      case SpreadPattern.FAST:
+        this.ray += 6;
+      case SpreadPattern.SINEACCENTER:
+        var margin = canvas.width - this.x;
+      case SpreadPattern.SINEACCEDGE:
+
+      default:
+        break;
+    }
   }
 
   update(){
@@ -129,6 +147,10 @@ function move_balls() {
   for (var i = 0; i < 11; ++i){
     balls.push( new Circle(200, 200, 'green', i/8, MoveMode.CLOCKWISE ) );
   }
+  balls.push( new Circle( 0, 150, 'red', 0, MoveMode.SINE ) );
+
+  // Important.
+  // Start doing the actual animation.
   setInterval( update_balls , 50 );
 }
 

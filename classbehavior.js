@@ -20,7 +20,9 @@ MoveMode = {
   CLOCKWISE : 0,
   COUNTERCLOCK : 1,
   SINE : 2,
-  COSINE : 3
+  COSINE : 3,
+  SINESPREAD : 4,
+  COSSPREAD : 5
 }
 
 SpreadPattern = {
@@ -69,6 +71,15 @@ class Circle {
     this.y = parY;
   }
 
+  check_for_remove(){
+    if( this.x < 0 || canvas.width < this.x  ){
+      // Delete this, or if that doesn't work, mark for deletion.
+    }
+    if( this.y < 0 ||canvas.height < this.y ){
+      // Delete this, or if that doesn't work, mark for deletion.
+    }
+  }
+
   clockwise(){
     this.x = centerX + Math.cos( this.delay * Math.PI ) * this.ray ;
     this.y = centerY + Math.sin( this.delay * Math.PI ) * this.ray ;
@@ -112,6 +123,11 @@ class Circle {
       default:
         break;
     }
+  }
+
+  clock_wise_spread(){
+    this.clockwise();
+    this.ray += 3;
   }
 
   update(){

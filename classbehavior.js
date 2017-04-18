@@ -37,7 +37,9 @@ class Circle {
   constructor( parX, parY, Color = 'green', Delay = 0,
      Mode = MoveMode.CLOCKWISE, Rad = 40, Ray = canvas.height/3 ) {
     this.x = parX;
+    this.startx = parX;
     this.y = parY;
+    this.starty = parY;
     // The radius of a ball.
     this.radius = Rad;
     this.color = Color;
@@ -54,6 +56,10 @@ class Circle {
 
   setSpread( Pattern ){
     this.spread = Pattern;
+  }
+
+  setColor( Color ){
+    this.color = Color;
   }
 
   draw(){
@@ -92,19 +98,21 @@ class Circle {
 
   sineroute(){
     // TODO: Implement sinepower .
-    this.y = this.y + Math.sin( this.x / 50  ) * 50;
+    this.y = this.y + Math.sin( this.x / 50  ) * 35;
     this.x += 10;
     if ( canvas.width < this.x){
-      this.x = 0;
+      this.x = this.startx;
+      this.y = this.starty;
     }
   }
 
   cosineroute(){
     // TODO: Implement sinepower .
-    this.y = this.y + Math.cos( this.x / 50 ) * 150;
+    this.y = this.y + Math.cos( this.x / 50 ) * 35;
     this.x += 10;
     if ( canvas.width < this.x){
-      this.x = 0;
+      this.x = this.startx;
+      this.y = this.starty;
     }
   }
   
@@ -171,10 +179,15 @@ function move_balls() {
 
   // Populate array with balls.
   for (var i = 0; i < 14; ++i){
-    if ( i != 5 && i != 8)
-    balls.push( new Circle(200, 200, 'green', i/8, MoveMode.CLOCKWISE ) );
+    if ( i != 5 && i != 8){
+      if ( i % 2 == 0){
+        balls.push( new Circle(200, 200, 'white', i/8, MoveMode.CLOCKWISE ) );  
+      }else
+      balls.push( new Circle(200, 200, 'green', i/8, MoveMode.CLOCKWISE ) );
+    }
+
   }
-  balls.push( new Circle( 0, canvas.height/2, 'red', 0, MoveMode.SINE ) );
+  balls.push( new Circle( 0, canvas.height/4, 'red', 0, MoveMode.SINE ) );
   balls.push( new Circle( 0, canvas.height/2, 'blue', 0, MoveMode.COSINE ) );
   
   balls.push( new Circle( -20, 50, 'pink', 0, MoveMode.SINE ) );
